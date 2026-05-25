@@ -4,7 +4,6 @@ fun main() {
 
     println("=====================================")
     println(" bienvenido al Gestor de Tareas CLI ")
-    println("=====================================")
 
     while (continuar) {
         mostrarMenu()
