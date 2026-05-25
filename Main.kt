@@ -4,7 +4,8 @@ fun main() {
 
     println("=====================================")
     println(" bienvenido al Gestor de Tareas CLI ")
-
+    println("=====================================")
+    
     while (continuar) {
         mostrarMenu()
         print("\nSelecciona una opción (1-6): ")
