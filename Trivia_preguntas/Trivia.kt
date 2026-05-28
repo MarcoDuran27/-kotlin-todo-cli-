@@ -6,7 +6,7 @@ class Trivia {
 
     fun iniciar() {
         banco.inicializarTrivia()
-        val preguntas = banco.obtenerPreguntasDelJuego()
+        val preguntas = banco.obtenerPreguntasDelJuego().take(2)
         var puntaje = 0
 
         println("===================================")
@@ -17,6 +17,7 @@ class Trivia {
         println()
 
         preguntas.forEach { pregunta ->
+            println("-----------------------------------")
             mostrarPregunta(pregunta)
 
             print("Tu respuesta: ")
@@ -26,8 +27,8 @@ class Trivia {
             val respuestaUsuario = entrada.toIntOrNull()
 
             if (respuestaUsuario == pregunta.respuestaCorrecta) {
-                println("Correcto")
-                puntaje++
+                println("Correcto!! Buena respuesta")
+                puntaje+=2
             } else {
                 println("Incorrecto. La respuesta correcta era: ${pregunta.respuestaCorrecta}")
             }
@@ -37,7 +38,7 @@ class Trivia {
 
         mostrarResultado(puntaje, preguntas.size)
     }
-
+      // Muestra el resultado final del jugador según su desempeño
     private fun mostrarPregunta(pregunta: Pregunta) {
         println("${pregunta.id}. ${pregunta.enunciado}")
 
