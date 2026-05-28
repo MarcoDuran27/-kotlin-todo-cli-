@@ -15,6 +15,7 @@ class Trivia {
         println("Responde escribiendo el número de la opción correcta.")
         println("Total de preguntas: ${banco.contarPreguntas()}")
         println()
+        println("-----------------------------------")
 
         preguntas.forEach { pregunta ->
             println("-----------------------------------")
@@ -34,24 +35,30 @@ class Trivia {
             }
 
             println()
+            println("-----------------------------------")
         }
 
         mostrarResultado(puntaje, preguntas.size)
     }
       // Muestra el resultado final del jugador según su desempeño
     private fun mostrarPregunta(pregunta: Pregunta) {
-        println("${pregunta.id}. ${pregunta.enunciado}")
 
-        pregunta.opciones.forEachIndexed { index, opcion ->
-            println("${index + 1}. $opcion")
-        }
+    println("Dificultad: ${pregunta.dificultad}")
+    println("${pregunta.id}. ${pregunta.enunciado}")
+
+    pregunta.opciones.forEachIndexed { index, opcion ->
+        println("${index + 1}. $opcion")
+          println("-----------------------------------")
     }
+}
 
     private fun mostrarResultado(puntaje: Int, total: Int) {
         println("===================================")
         println("              RESULTADO")
         println("===================================")
         println("Puntaje final: $puntaje de $total")
+        println("-----------------------------------")
+
 
         when {
             puntaje == total -> println("Excelente. Contestaste todo correctamente.")
