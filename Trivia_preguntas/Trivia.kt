@@ -37,7 +37,7 @@ class Trivia {
 
         mostrarResultado(puntaje, preguntas.size)
     }
-
+      // Muestra el resultado final del jugador según su desempeño
     private fun mostrarPregunta(pregunta: Pregunta) {
         println("${pregunta.id}. ${pregunta.enunciado}")
 
