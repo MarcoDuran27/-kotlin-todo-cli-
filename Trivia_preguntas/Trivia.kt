@@ -1,5 +1,7 @@
 package trivia_preguntas
 
+import kotlin.concurrent.thread
+
 class Trivia {
 
     private val banco = BancoPreguntas()
@@ -19,17 +21,21 @@ class Trivia {
         preguntas.forEach { pregunta ->
             mostrarPregunta(pregunta)
 
-            print("Tu respuesta: ")
+            print("Tu respuesta (tienes 10 segundos): ")
 
-            // Null safety: evita error si el usuario no escribe nada
-            val entrada = readLine()?.trim() ?: ""
+            // ⏱ lectura con tiempo límite
+            val entrada = leerConTiempo(10)?.trim() ?: ""
             val respuestaUsuario = entrada.toIntOrNull()
 
             if (respuestaUsuario == pregunta.respuestaCorrecta) {
                 println("Correcto")
                 puntaje++
             } else {
-                println("Incorrecto. La respuesta correcta era: ${pregunta.respuestaCorrecta}")
+                if (entrada.isEmpty()) {
+                    println("Incorrecto. No respondiste a tiempo.")
+                } else {
+                    println("Incorrecto. La respuesta correcta era: ${pregunta.respuestaCorrecta}")
+                }
             }
 
             println()
@@ -53,9 +59,37 @@ class Trivia {
         println("Puntaje final: $puntaje de $total")
 
         when {
-            puntaje == total -> println("Excelente. Contestaste todo correctamente.")
-            puntaje >= total / 2 -> println("Buen resultado. Vas entendiendo Kotlin.")
-            else -> println("Necesitas repasar más los conceptos básicos.")
+            puntaje == total ->
+                println("Excelente. Contestaste todo correctamente.")
+            puntaje >= total / 2 ->
+                println("Buen resultado. Vas entendiendo Kotlin.")
+            else ->
+                println("Necesitas repasar más los conceptos básicos.")
         }
     }
+}
+
+/* =========================================
+   ⏱ FUNCIÓN CON TIEMPO LÍMITE
+   ========================================= */
+
+fun leerConTiempo(segundos: Int): String? {
+    var respuesta: String? = null
+
+    val hilo = thread {
+        respuesta = readLine()
+    }
+
+    for (i in segundos downTo 1) {
+        print("\rTiempo restante: $i segundos ")
+        Thread.sleep(1000)
+        if (!hilo.isAlive) break
+    }
+
+    if (hilo.isAlive) {
+        hilo.interrupt()
+        println("\nTiempo agotado")
+    }
+
+    return respuesta
 }
