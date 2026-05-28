@@ -28,7 +28,7 @@ class Trivia {
 
             if (respuestaUsuario == pregunta.respuestaCorrecta) {
                 println("Correcto!! Buena respuesta")
-                puntaje++
+                puntaje+=2
             } else {
                 println("Incorrecto. La respuesta correcta era: ${pregunta.respuestaCorrecta}")
             }
