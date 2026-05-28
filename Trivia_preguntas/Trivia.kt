@@ -55,6 +55,8 @@ class Trivia {
         println("              RESULTADO")
         println("===================================")
         println("Puntaje final: $puntaje de $total")
+        println("-----------------------------------")
+
 
         when {
             puntaje == total -> println("Excelente. Contestaste todo correctamente.")
